@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Управление настольными играми</title>
+    <link rel ="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container-fluid text-center">
+    <div><h2>Управление настольными играми</h2></div>
+    <div class="m-2">
+        <a class="h3" th:href="@{/games/new}">Добавить игру</a>
+    </div>
+
+    <div class="m-2">
+        <a class="h3" th:href="@{/games/genres}">Жанры</a>
+    </div>
+
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+    <div>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Минимальное кол-во игроков</th>
+                <th>Максимальное кол-во игроков</th>
+                <th>Среднее время игры</th>
+                <th>Жанры</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="game : ${listGames}">
+                <tr>
+                    <td>[[${game.id}]]</td>
+                    <td>[[${game.title}]]</td>
+                    <td>[[${game.minAm}]]</td>
+                    <td>[[${game.maxAm}]]</td>
+                    <td>[[${game.averagePlayTime}]]</td>
+                    <td>[[${game.genres}]]</td>
+                    <td>
+                        <a class="h4 mr-3" th:href="@{'/games/edit/' + ${game.id}}">Изменить</a>
+                        <a class="h4" th:href="@{'/games/delete/' + ${game.id}}">Удалить</a>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="m-2 text-center">
+    <a class="h3" th:href="@{/}">Назад</a>
+</div>
+</body>
+</html>

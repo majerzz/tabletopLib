@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${pageTitle}]]</title>
+    <link rel ="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="text-center"><h1>[[${pageTitle}]]</h1></div>
+
+        <form th:action="@{/users/save}" method="post" th:object="${user}"
+        style="max-width: 500px; margin: 0 auto;">
+            <input type="hidden" th:field="*{id}">
+            <div class="border border-secondary rounded p-3">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Почта:</label>
+                    <div class="col-sm-8">
+                        <input type="email" th:field="*{email}" class="form-control" required minlength="6" maxlength="45"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Логин:</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{username}" class="form-control" required minlength="3" maxlength="25"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Пароль:</label>
+                    <div class="col-sm-8">
+                        <input type="password" th:field="*{password}" class="form-control" required minlength="10" maxlength="25"/>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn-primary m-2">Сохранить</button>
+                    <button type="button" class="btn-secondary m-2" onclick="cancleForm()">Отмена</button>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+<script type="text/javascript">
+    function cancleForm(){
+        window.location = "[[@{/users}]]"
+    }
+</script>
+</body>
+</html>
