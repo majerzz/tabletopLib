@@ -1,15 +1,16 @@
-package com.example.tabletoplib.games;
+package com.example.tabletoplib.genres;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class GenreService {
     @Autowired private GenreRepo repo;
+    @Autowired private GenreSortingRepo sortRepo;
 
     public void save(Genre genre){
         repo.save(genre);
@@ -32,12 +33,11 @@ public class GenreService {
     }
 
     public List<Genre> listAll(){
-        return(List<Genre>) repo.findAll();
+        return (List<Genre>)repo.findAll();
     }
 
     public List<Genre> listAllSorted(){
-        List<Genre> list = (List<Genre>)repo.findAll();
-        list.sort(Comparator.comparing(Genre::getGenre));
+        List<Genre> list = (List<Genre>)sortRepo.findAll(Sort.by(Sort.Direction.ASC, "engTitle"));
         return list;
     }
 }

@@ -2,7 +2,7 @@ package com.example.tabletoplib;
 
 import com.example.tabletoplib.games.Game;
 import com.example.tabletoplib.games.GameRepo;
-import com.example.tabletoplib.games.Genre;
+import com.example.tabletoplib.genres.Genre;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -22,13 +22,9 @@ public class GameRepoTest {
 
     @Test
     public void testCreateGenres(){
-        Genre economic = new Genre("Экономика");
-        Genre fighting = new Genre("Файтинг");
-        Genre scienceFiction = new Genre("Научная фантастика");
+        Genre areaControl = new Genre("Контроль территорий");
 
-        entityManager.persist(economic);
-        entityManager.persist(fighting);
-        entityManager.persist(scienceFiction);
+        entityManager.persist(areaControl);
     }
 
     @Test

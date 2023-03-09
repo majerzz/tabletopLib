@@ -1,5 +1,8 @@
 package com.example.tabletoplib.games;
 
+import com.example.tabletoplib.genres.Genre;
+import com.example.tabletoplib.mechanics.Mechanic;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -39,7 +42,21 @@ public class Game {
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
+
     private Set<Genre> genres = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "tbgames_mechanic",
+            joinColumns = @JoinColumn(name = "mehcanic_id"),
+            inverseJoinColumns = @JoinColumn(name = "mechanic_id")
+    )
+
+
+    private Set<Mechanic> mechanics = new HashSet<>();
+
+    @Column(name = "difficulty")
+    private Integer difficulty;
 
     public void addGenre(Genre genre){
         this.genres.add(genre);
@@ -47,6 +64,22 @@ public class Game {
 
     public void deleteGenre(Genre genre){
         this.genres.remove(genre);
+    }
+
+    public void addMechanic(Mechanic mechanic){
+        this.mechanics.add(mechanic);
+    }
+
+    public void deleteMechanic(Mechanic mechanic){
+        this.mechanics.remove(mechanic);
+    }
+
+    public Set<Mechanic> getMechanics() {
+        return mechanics;
+    }
+
+    public void setMechanics(Set<Mechanic> mechanics) {
+        this.mechanics = mechanics;
     }
 
     public Set<Genre> getGenres() {
@@ -97,6 +130,14 @@ public class Game {
         this.averagePlayTime = averagePlayTime;
     }
 
+    public Integer getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Integer difficulty) {
+        this.difficulty = difficulty;
+    }
+
     @Override
     public String toString() {
         return "Game{" +
@@ -106,6 +147,8 @@ public class Game {
                 ", maxAm=" + maxAm +
                 ", averagePlayTime=" + averagePlayTime +
                 ", genres=" + genres +
+                ", mechanics=" + mechanics +
+                ", difficulty=" + difficulty +
                 '}';
     }
 }

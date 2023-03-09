@@ -1,4 +1,4 @@
-package com.example.tabletoplib.games;
+package com.example.tabletoplib.genres;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -13,21 +13,31 @@ public class Genre {
         this.id = id;
     }
 
-    public Genre(String genre) {
-        this.genre = genre;
+    public Genre(String title) {
+        this.title = title;
     }
-
-    public Genre(Integer id, String genre) {
+    public Genre(Integer id, String title) {
         this.id = id;
-        this.genre = genre;
+        this.title = title;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "genre", unique = true)
-    private String genre;
+    @Column(name = "genre_title", unique = false)
+    private String title;
+
+    @Column(name = "eng_genre_title", unique = true)
+    private String engTitle;
+
+    public String getEngTitle() {
+        return engTitle;
+    }
+
+    public void setEngTitle(String engTitle) {
+        this.engTitle = engTitle;
+    }
 
     public Integer getId() {
         return id;
@@ -37,12 +47,12 @@ public class Genre {
         this.id = id;
     }
 
-    public String getGenre() {
-        return genre;
+    public String getTitle() {
+        return title;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override
@@ -60,6 +70,6 @@ public class Genre {
 
     @Override
     public String toString() {
-        return genre;
+        return title + "(" + engTitle + ")";
     }
 }

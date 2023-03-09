@@ -1,4 +1,4 @@
-package com.example.tabletoplib.games;
+package com.example.tabletoplib.genres;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ public class GenreController {
 
     @GetMapping("/games/genres")
     public String showGameList(Model model){
-        List<Genre> listGenres = genreService.listAll();
+        List<Genre> listGenres = genreService.listAllSorted();
         model.addAttribute("listGenres", listGenres);
         return "games_genres";
     }

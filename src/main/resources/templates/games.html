@@ -16,6 +16,10 @@
         <a class="h3" th:href="@{/games/genres}">Жанры</a>
     </div>
 
+    <div class="m-2">
+        <a class="h3" th:href="@{/games/mechanics}">Механики</a>
+    </div>
+
     <div th:if="${message}" class="alert alert-success text-center">
         [[${message}]]
     </div>
@@ -30,6 +34,7 @@
                 <th>Максимальное кол-во игроков</th>
                 <th>Среднее время игры</th>
                 <th>Жанры</th>
+                <th>Механики</th>
                 <th></th>
             </tr>
             </thead>
@@ -42,6 +47,7 @@
                     <td>[[${game.maxAm}]]</td>
                     <td>[[${game.averagePlayTime}]]</td>
                     <td>[[${game.genres}]]</td>
+                    <td>[[${game.mechanics}]]</td>
                     <td>
                         <a class="h4 mr-3" th:href="@{'/games/edit/' + ${game.id}}">Изменить</a>
                         <a class="h4" th:href="@{'/games/delete/' + ${game.id}}">Удалить</a>

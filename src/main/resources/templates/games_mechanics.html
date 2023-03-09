@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Управление жанрами</title>
+  <link rel ="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container-fluid text-center">
+  <div><h2>Управление механиками</h2></div>
+  <div class="m-2 text-center">
+    <a class="h3" th:href="@{/games}">Назад</a>
+  </div>
+  <div class="m-2">
+    <a class="h3" th:href="@{/games/mechanics/new}">Добавить механику</a>
+  </div>
+
+  <div th:if="${message}" class="alert alert-success text-center">
+    [[${message}]]
+  </div>
+
+  <div>
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>Механика</th>
+        <th>Механика ENG</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <th:block th:each="mechanic : ${listMechanics}">
+        <tr>
+          <td>[[${mechanic.id}]]</td>
+          <td>[[${mechanic.title}]]</td>
+          <td>[[${mechanic.engTitle}]]</td>
+          <td>
+            <a class="h4 mr-3" th:href="@{'/games/mechanics/edit/' + ${mechanic.id}}">Изменить</a>
+            <a class="h4" th:href="@{'/games/mechanics/delete/' + ${mechanic.id}}">Удалить</a>
+          </td>
+        </tr>
+      </th:block>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

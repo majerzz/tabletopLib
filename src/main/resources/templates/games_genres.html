@@ -8,6 +8,9 @@
 <body>
 <div class="container-fluid text-center">
     <div><h2>Управление жанрами</h2></div>
+    <div class="m-2 text-center">
+        <a class="h3" th:href="@{/games}">Назад</a>
+    </div>
     <div class="m-2">
         <a class="h3" th:href="@{/games/genres/new}">Добавить жанр</a>
     </div>
@@ -22,6 +25,7 @@
             <tr>
                 <th>ID</th>
                 <th>Жанр</th>
+                <th>Жанр ENG</th>
                 <th></th>
             </tr>
             </thead>
@@ -29,7 +33,8 @@
             <th:block th:each="genre : ${listGenres}">
                 <tr>
                     <td>[[${genre.id}]]</td>
-                    <td>[[${genre.genre}]]</td>
+                    <td>[[${genre.title}]]</td>
+                    <td>[[${genre.engTitle}]]</td>
                     <td>
                         <a class="h4 mr-3" th:href="@{'/games/genres/edit/' + ${genre.id}}">Изменить</a>
                         <a class="h4" th:href="@{'/games/genres/delete/' + ${genre.id}}">Удалить</a>
@@ -39,9 +44,6 @@
             </tbody>
         </table>
     </div>
-</div>
-<div class="m-2 text-center">
-    <a class="h3" th:href="@{/games}">Назад</a>
 </div>
 </body>
 </html>
