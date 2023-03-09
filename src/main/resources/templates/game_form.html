@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>[[${pageTitle}]]</title>
   <link rel ="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+  <link rel ="stylesheet" th:href="@{/live_search.css}"/>
 </head>
 <body>
   <div class="container-fluid">
@@ -35,7 +36,8 @@
         <div class="form-group">
           <label>Жанры:</label>
             <select style="height: 200px" class="form-control selectpicker" th:field="*{genres}" multiple = "multiple">
-              <option th:each="genre : ${genres}"
+              <option name="genreopt"
+                      th:each="genre : ${genres}"
                       th:value="${genre.id}"
                       th:utext="${genre.engTitle}">
 
@@ -44,13 +46,19 @@
         </div>
 
         <div class="form-group">
+
           <label>Механики:</label>
-          <select style="height: 200px" class="form-control selectpicker" th:field="*{mechanics}" multiple = "multiple">
-            <option th:each="mechanic : ${mechanics}"
+
+          <select name="mechanics" style="height: 200px" class="form-control selectpicker" th:field="*{mechanics}" multiple = "multiple">
+            <option name="mechopt"
+                    th:each="mechanic : ${mechanics}"
                     th:value="${mechanic.id}"
                     th:utext="${mechanic.engTitle}">
             </option>
           </select>
+        </div>
+        <div class="text-center">
+          <input type="text" id="input" name="input"/>
         </div>
 
         <div class="text-center">
@@ -66,5 +74,32 @@
       window.location = "[[@{/games}]]"
     }
   </script>
+
+  <script type="text/javascript">
+    window.onload = () => {
+      let input = document.querySelector('#input')
+
+      input.oninput = function(){
+        let value = this.value.trim().toLowerCase();
+        let option = document.querySelectorAll("option")
+
+        if(value != ''){
+          option.forEach(elem => {
+            let elstring = elem.innerText.trim().toLowerCase();
+            if(elstring.search(value) == -1) {
+              elem.classList.add('hide')
+            }
+          });
+        } else {
+          option.forEach(elem => {
+            elem.classList.remove('hide');
+          });
+        }
+      }
+    };
+  </script>
+
+
+
 </body>
 </html>
