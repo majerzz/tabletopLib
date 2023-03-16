@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Управление настольными играми</title>
     <link rel ="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel ="stylesheet" th:href="@{/live_search.css}"/>
 </head>
 <body>
 <div class="container-fluid text-center">
@@ -24,6 +25,10 @@
         [[${message}]]
     </div>
 
+    <div class="text-center m-2">
+        <input type="text" id="input" name="input"/>
+    </div>
+
     <div>
         <table class="table table-bordered">
             <thead class="thead-dark">
@@ -33,6 +38,7 @@
                 <th>Минимальное кол-во игроков</th>
                 <th>Максимальное кол-во игроков</th>
                 <th>Среднее время игры</th>
+                <th>Сложность</th>
                 <th>Жанры</th>
                 <th>Механики</th>
                 <th></th>
@@ -40,12 +46,13 @@
             </thead>
             <tbody>
             <th:block th:each="game : ${listGames}">
-                <tr>
+                <tr name="games">
                     <td>[[${game.id}]]</td>
                     <td>[[${game.title}]]</td>
                     <td>[[${game.minAm}]]</td>
                     <td>[[${game.maxAm}]]</td>
                     <td>[[${game.averagePlayTime}]]</td>
+                    <td>[[${game.difficulty}]]</td>
                     <td>[[${game.genres}]]</td>
                     <td>[[${game.mechanics}]]</td>
                     <td>
@@ -61,5 +68,30 @@
 <div class="m-2 text-center">
     <a class="h3" th:href="@{/}">Назад</a>
 </div>
+
+<script type="text/javascript">
+    window.onload = () => {
+        let input = document.querySelector('#input')
+
+        input.oninput = function(){
+            let value = this.value.trim().toLowerCase();
+            let option = document.querySelectorAll('tr[name="games"]')
+
+            if(value != ''){
+                option.forEach(elem => {
+                    let elstring = elem.innerText.trim().toLowerCase();
+                    if(elstring.search(value) == -1) {
+                        elem.classList.add('hide')
+                    }
+                });
+            } else {
+                option.forEach(elem => {
+                    elem.classList.remove('hide');
+                });
+            }
+        }
+    };
+</script>
+
 </body>
 </html>
